@@ -1,0 +1,95 @@
+    <html>
+        <head>
+
+            <title> dashboard perform</title>
+            <link rel="stylesheet" href="gauge.css">
+            <link rel="stylesheet" href="switch.css">
+            <link rel="stylesheet" href="layout.css">
+            <!--<script src="scripts.js"></script>-->
+        </head>
+        <body>
+            <div class="layout_Ele">
+                <div class="monitor_sensor">
+                    <div class="gauge_soil">
+                        <div class="gauge__body">
+                          <div class="gauge__fill_Br"></div>
+                          <div class="gauge__cover_Br"></div>
+                        </div>
+                    </div>
+                    <div class="gauge_mois">
+                        <div class="gauge__body">
+                          <div class="gauge__fill_B"></div>
+                          <div class="gauge__cover_B"></div>
+                        </div>
+                    </div>
+                    <div class="gauge_temp">
+                        <div class="gauge__body">
+                          <div class="gauge__fill_R"></div>
+                          <div class="gauge__cover_R"></div>
+                        </div>
+                    </div>
+                </div>
+            
+                    <label class="switch">
+                        <input type="checkbox" id="water" onclick ="display_state_switch">
+                        <span class="slider round"></span>
+                        <p id="out_switch"></p>>
+                    </label>
+                    <label class="text_switch">water pump switch</label>
+            </div>
+               
+            </div>
+            <a class="weatherwidget-io" href="https://forecast7.com/en/13d76100d50/bangkok/" data-label_1="BANGKOK" data-label_2="WEATHER" data-theme="original" >BANGKOK WEATHER</a>
+                <script>
+                !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+                </script>
+            <script>
+                const gaugeElement_soil = document.querySelector(".gauge_soil");
+                //gaugeElement_soil.addEventListener("onchange",setGaugeValue_soil(gaugeElement_soil,));//event soil refresh when new value comming    
+                    function setGaugeValue_soil(gauge, value) {
+                    if (value < 0 || value > 1) {     
+                        return;
+                    }
+
+                        gauge.querySelector(".gauge__fill_Br").style.transform = `rotate(${value/2}turn)`;
+                        gauge.querySelector(".gauge__cover_Br").textContent = `${Math.round(value * 100)}%`+`soil moisture`;
+                    }
+                    
+                    const gaugeElement_mois = document.querySelector(".gauge_mois");
+                   // gaugeElement_mois.addEventListener("onchange",setGaugeValue_mois(gaugeElement_mois,)); //event mois refresh when new value comming
+                        function setGaugeValue_mois(gauge, value) {
+                            if (value < 0 || value > 1) {
+                                return;
+                            }
+
+                        gauge.querySelector(".gauge__fill_B").style.transform = `rotate(${value/2}turn)`;
+                        gauge.querySelector(".gauge__cover_B").textContent = `${Math.round(value * 100)}%`+`air moisture`;
+                        }
+                        
+
+                    const gaugeElement_temp = document.querySelector(".gauge_temp");
+                    //gaugeElement_temp.addEventListener("onchange",setGaugeValue_temp(gaugeElement_mois,)); //event temp refresh when new value comming
+                    function setGaugeValue_temp(gauge, value) {
+                            if (value < 0 || value > 1) {
+                                return;
+                        }
+                        
+                        gauge.querySelector(".gauge__fill_R").style.transform = `rotate(${value/2}turn)`;
+                        gauge.querySelector(".gauge__cover_R").textContent = `${Math.round(value * 100)}%`+`air temperature`;
+                        }
+                setGaugeValue_soil(gaugeElement_soil, 0.6);
+                setGaugeValue_mois(gaugeElement_mois, 0.9);
+                setGaugeValue_temp(gaugeElement_temp, 0.3);
+                
+                
+                //checkbox.addEventListener("onclick",display_state_switch(document.getElementById("water").value));
+                function display_state_switch(){
+                    var toggleSwitch_value = document.getElementById("water").value;
+                    document.getElementById("text_switch").innerHTML = toggleSwitch_value;
+                    return state;
+                }
+                
+            </script>
+        </body>
+        
+    </html>

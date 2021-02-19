@@ -1,0 +1,36 @@
+.monitor_sensor
+{
+    display: inline-flex;
+    flex-direction: row;
+    position: relative;
+
+}
+.switch
+{
+    display: flex;
+    text-align: center;
+    top: 50px;
+}
+.text_switch
+{
+    
+    left: 50cm;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    
+}
+.weatherwidget-io
+{  
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+    top: 50%;
+    left: 15%;
+}
+.layout_Ele
+{
+    display: grid;
+    left: 30%;
+    top: 10%;
+    position: relative;
+}
