@@ -52,12 +52,14 @@
 
             <div class="col-5 index_text p-2 mx-1">
                 <h1 class="sensor2">Air Humidity :</h1>
+                <h1 class = "sensor3">Soil Humidity : </h1>
             </div>
 
+            <!--
             <div class = "col-5 index_text p-2 mx-1">
-                <h1 class = "sensor2">Soil Humidity : </h1>
+                <h1 class = "sensor3">Soil Humidity : </h1>
             </div>
-            <br>
+            <br> -->
 
 
 
@@ -68,8 +70,8 @@
     <style>
 
         .index_text{
-            widows: 150px;
-            height: 220px;
+            widows: 30px;
+            height: 120px;
             justify-content: center;
         }
 
@@ -83,7 +85,7 @@
     <div class="container-fluid">
         <!-- Example row of columns -->
         <div class="row">
-            <div class="container-fluid" id="data-temperature">
+            <div class="container-fluid" id="data-airtemperature">
 
             </div>
         </div>
@@ -95,7 +97,16 @@
     <div class="container-fluid">
         <!-- Example row of columns -->
         <div class="row">
-            <div class="container-fluid" id="data-humidity">
+            <div class="container-fluid" id="data-airhumidity">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="container-fluid" id="data-soilhumidity">
 
             </div>
         </div>
@@ -103,8 +114,9 @@
 
 
     <script>
-        var chartTemperatue;
-        var chartHumidity;
+        var chartAirTemperature;
+        var chartAirHumidity;
+        var chartSoilHumidity;
 
         function requestData()
         {
@@ -113,36 +125,51 @@
 
             var tm = requests.done(function (result)
             {
-                // Temperature
-                var seriesTemperature = chartTemperatue.series[0],
-                    shiftTemperature = seriesTemperature.data.length > 20;
+                // AirTemperature
+                var seriesAirTemperature = chartAirTemperature.series[0],
+                    shiftAirTemperature = seriesAirTemperature.data.length > 20;
 
-                // Humidity
-                var seriesHumidity = chartHumidity.series[0],
-                    shiftHumidity = seriesTemperature.data.length > 20;
+                // AirHumidity
+                var seriesAirHumidity = chartAirHumidity.series[0],
+                    shiftAirHumidity = seriesAirHumidity.data.length > 20;
+
+               // Soil Humidity
+                var seriesSoilHumidity = chartSoilHumidity.series[0],
+                    shiftSoilHumidity = seriesSoilHumidity.data.length > 20;
 
                 // Add the Point
-                // Time Temperature\
+                // Time AirTemperature\
                 var data1 = [];
                 data1.push(result[0]);
                 data1.push(result[1]);
 
 
+
                 // Add the Point
-                // Time Humidity
+                // Time AirHumidity
                 var data2 = [];
                 data2.push(result[0]);
                 data2.push(result[2]);
 
+                // Add the Point
+                // Time SoilHumidity
+                var data3 = [];
+                data3.push(result[0]);
+                data3.push(result[3]);
 
-                chartTemperatue.series[0].addPoint(data1, true, shiftTemperature);
-                chartHumidity.series[0].addPoint(data2, true, shiftHumidity);
+
+                chartAirTemperature.series[0].addPoint(data1, true, shiftAirTemperature);
+                chartAirHumidity.series[0].addPoint(data2, true, shiftAirHumidity);
+                chartSoilHumidity.series[0].addPoint(data3, true, shiftSoilHumidity);
+
                 $(".sensor1").text("");
-                $(".sensor1").text("Temperature : " +  Math.round(data1[1]) );
+                $(".sensor1").text("AirTemperature : " +  Math.round(data1[1]) );
 
                 $(".sensor2").text("");
-                $(".sensor2").text("Humidity : " +  Math.round(data2[1]) );
+                $(".sensor2").text("AirHumidity : " +  Math.round(data2[1]) );
 
+                $(".sensor3").text("");
+                $(".sensor3").text("SoilHumidity : " +  Math.round(data3[1]) );
                 // call it again after one second
                 setTimeout(requestData, 2000);
 
@@ -152,10 +179,10 @@
         $(document).ready(function()
         {
             // --------------Chart 1 ----------------------------
-            chartTemperatue = new Highcharts.Chart({
+            chartAirTemperature = new Highcharts.Chart({
                 chart:
                     {
-                    renderTo: 'data-temperature',
+                    renderTo: 'data-airtemperature',
                     defaultSeriesType: 'area',
                     events: {
                         load: requestData
@@ -163,7 +190,7 @@
                     },
                 title:
                     {
-                    text: 'Temperature'
+                    text: 'AirTemperature'
                     },
                 xAxis: {
                     type: 'datetime',
@@ -181,16 +208,16 @@
                 series: [{
                     color : '#c23d23',
                     lineColor: '#303030',
-                    name: 'Temperature',
+                    name: 'AirTemperature',
                     data: []
                 }]
             });
             // --------------Chart 1 Ends - -----------------
 
-            chartHumidity = new Highcharts.Chart({
+            chartAirHumidity = new Highcharts.Chart({
                 chart:
                     {
-                        renderTo: 'data-humidity',
+                        renderTo: 'data-airhumidity',
                         defaultSeriesType: 'area',
                         events: {
                             load: requestData
@@ -198,7 +225,7 @@
                     },
                 title:
                     {
-                        text: 'Humidity'
+                        text: 'AirHumidity'
                     },
                 xAxis: {
                     type: 'datetime',
@@ -215,7 +242,42 @@
                 },
                 series: [{
                     lineColor: '#1d82b8',
-                    name: 'Humidity',
+                    name: 'AirHumidity',
+                    data: []
+                }]
+            });
+            // --------------Chart 2 Ends - -----------------
+
+            chartSoilHumidity = new Highcharts.Chart({
+                chart:
+                    {
+                        renderTo: 'data-soilhumidity',
+                        defaultSeriesType: 'area',
+                        events: {
+                            load: requestData
+                        }
+                    },
+                title:
+                    {
+                        text: 'SoilHumidity'
+                    },
+                xAxis: {
+                    type: 'datetime',
+                    tickPixelInterval: 150,
+                    maxZoom: 20 * 1000
+                },
+                yAxis: {
+                    minPadding: 0.2,
+                    maxPadding: 0.2,
+                    title: {
+                        text: 'Value',
+                        margin: 80
+                    }
+                },
+                series: [{
+                    color : '#33ffbd',
+                    lineColor: '#009969',
+                    name: 'SoilHumidity',
                     data: []
                 }]
             });
@@ -264,7 +326,7 @@
         }
     }
     const imgUrl = 'https://media.giphy.com/media/N256GFy1u6M6Y/giphy.gif'
-    const size = "50";
+    const size = "5";
     var obj = new Image(imgUrl, size);
     obj.backgroundImage();
     obj.centerTitle();
