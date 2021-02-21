@@ -1,5 +1,7 @@
 # Flask Import
-from flask import Flask, jsonify, request, render_template
+from time import time
+
+from flask import Flask, jsonify, request, render_template, make_response
 
 # FireBase Import
 import firebase_admin
@@ -14,7 +16,7 @@ import random as rd
 
 # ref https://firebase.google.com/docs/database/admin/save-data
 # Fetch the service account key JSON file contents
-cred = credentials.Certificate('cpe-496-internet-of-things-firebase-adminsdk-96r5x-b5c2187998.json')
+cred = credentials.Certificate('project-cpe-496-59cdc-firebase-adminsdk-h16ku-6546e83e14.json')
 
 # Initialize the app with a service account, granting admin privileges
 firebase_admin.initialize_app(cred, {
@@ -96,9 +98,27 @@ def read_data():
         return jsonify({"status": "Error", "msg": "please use query string name --topic--"})
 
 
-@app.route('/', methods=['GET', "POST"])
-def index():
+@app.route('/', methods=["GET", "POST"])
+def main():
     return render_template('index.html')
+
+
+@app.route('/data', methods=["GET", "POST"])
+def data():
+    # Data Format
+    # [TIME, Temperature, Humidity]
+
+    AirTemperature = rd() * 100
+    AirHumidity = rd() * 55
+    SoilHumidity = rd() * 55
+
+    data = [time() * 1000, AirTemperature, AirHumidity, SoilHumidity]
+
+    response = make_response(json.dumps(data))
+
+    response.content_type = 'application/json'
+
+    return response
 
 
 if __name__ == "__main__":
