@@ -55,8 +55,6 @@ client.on_connect = on_connection
 client.on_message = on_message
 client.connect(hostname, 1883, 60)
 
-client.loop_forever()
-
 app = Flask(__name__)
 
 '''
@@ -108,9 +106,9 @@ def data():
     # Data Format
     # [TIME, Temperature, Humidity]
 
-    AirTemperature = rd() * 100
-    AirHumidity = rd() * 55
-    SoilHumidity = rd() * 55
+    AirTemperature = rd.random() * 100
+    AirHumidity = rd.random() * 55
+    SoilHumidity = rd.random() * 55
 
     data = [time() * 1000, AirTemperature, AirHumidity, SoilHumidity]
 
@@ -122,7 +120,8 @@ def data():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0")  # test
+    app.run(debug=True, host="127.0.0.1")  # test
+    client.loop_forever()
     # app.run(threaded=True, port=5000)
 
 # # As an admin, the app has access to read and write all data, regradless of Security Rules
