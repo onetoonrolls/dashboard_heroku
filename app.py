@@ -84,8 +84,22 @@ def write_data():
     ref.child(json_data['topic']).set((json_data['data']))
     return json_data['data']
 '''
+@app.route('/switch/on')
+def switch_on():
+    client_id = 'MyClient' + ''.join(rd.choices(string.ascii_uppercase + string.digits, k=12))
+    mqttc = mqtt.Client(client_id)
+    mqttc.connect(hostname, 1883)
+    mqttc.publish("cpe496_switch", "on")
+    return 'switch on'
 
-'''
+@app.route('/switch/off', methods=['GET'])
+def switch_off():
+    client_id = 'MyClient' + ''.join(rd.choices(string.ascii_uppercase + string.digits, k=12))
+    mqttc = mqtt.Client(client_id)
+    mqttc.connect(hostname, 1883)
+    mqttc.publish("cpe496_switch", "off")
+    return 'switch off'
+
 @app.route('/data/read/all', methods=['GET'])
 def read_all_data():
     json_data = request.get_json(silent=True)
@@ -93,7 +107,7 @@ def read_all_data():
     ref = db.reference('/')
     return jsonify(ref.get())
 
-
+'''
 # read data by query string topic
 @app.route('/data/read', methods=['GET'])
 def read_data():
@@ -105,7 +119,7 @@ def read_data():
         return jsonify({"status": "Error", "msg": "please use query string name --topic--"})
 '''
 
-
+'''
 @app.route('/', methods=["GET", "POST"])
 def main():
     return render_template('index.html')
@@ -119,11 +133,11 @@ def data():
     #Serialize : JSON -> Str
     #Deserialize : Str -> JSON
 
-    '''
+    
         AirTemperature = json_buffer['data']['temperature']
         AirHumidity = json_buffer['data']['humidity']
         SoilHumidity = int(json_buffer['data']['moisture'])
-    '''
+    
 
 
     data = [time() * 1000, AirTemperature, AirHumidity, SoilHumidity]
@@ -135,7 +149,7 @@ def data():
     response.content_type = 'application/json'
 
     return response
-
+'''
 
 if __name__ == "__main__":
     app.run(debug=True, host="127.0.0.1")  # test
