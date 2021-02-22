@@ -38,6 +38,8 @@ void setup()
   client.setServer(mqtt_server, mqtt_port);
   client.setCallback(callback);
 
+  pinMode(2, OUTPUT);
+  
   randomSeed(analogRead(0));
 }
 
@@ -73,7 +75,10 @@ void reconnect()
   while (!client.connected()){
     Serial.print("Attempting MQTT connection...");
     if (client.connect(mqtt_Client, mqtt_username, mqtt_password))
+    {
       Serial.println("connected");
+      client.subscribe("cpe496_switch");
+    }
     else
       {
         Serial.print("failed, rc=");
@@ -89,9 +94,32 @@ void callback(char* topic,byte* payload, unsigned int length) //get data from ne
   Serial.print("Message arrived [");
   Serial.print(topic);
   Serial.print("]: ");
-  String msg;
+  String ricmsg;
   for (int i = 0; i < length; i++) {
-    msg = msg + (char)payload[i];
+    ricmsg = ricmsg + (char)payload[i];
   }
-   Serial.println(msg);
+   Serial.println(ricmsg);
+  if( String(topic) == "cpe496_switch") 
+   if (ricmsg == "on"){
+     onoff(1); 
+     
+   } 
+   else if (ricmsg == "off") {
+     onoff(0);
+   } 
+}
+
+void onoff(int motor) //sent LED status to netpie
+{
+  if(motor == 1)
+  {
+  Serial.println("Turn on relay");
+  digitalWrite(2,HIGH);
+  }
+   else if (motor == 0) 
+  {
+    Serial.println("Turn off relay");
+    digitalWrite(2,LOW);
+
+  }
 }
