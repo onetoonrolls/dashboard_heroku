@@ -10,8 +10,9 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
-
+    <link rel="stylesheet" href="gauge.css">
+    <link rel="stylesheet" href="switch.css">
+    <link rel="stylesheet" href="layout.css">
 
     <!-- JQuery links  -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -29,59 +30,75 @@
 </head>
 
 <body>
-        <!-- Online weather widget-->
-        <a class="weatherwidget-io" href="https://forecast7.com/en/13d76100d50/bangkok/" data-label_1="BANGKOK" data-label_2="WEATHER" data-theme="original" >BANGKOK WEATHER</a>
-        <script>
-            !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
-        </script>
-
-    <div class="index_text">
-        <h1 class="text-center text-white">Welcome to Smart Farm Sensor Dashboard</h1>
-    </div>
-    <br>
-    <br>
-
-    <div class="container-fluid">
-
-        <div class="row">
-
-            <div class="col-5 index_text p-2 mx-1">
-                <h1 class="sensor1"> Air Temperature : </h1>
-            </div>
-            <br>
-
-            <div class="col-5 index_text p-2 mx-1">
-                <h1 class="sensor2">Air Humidity :</h1>
-                <h1 class = "sensor3">Soil Humidity : </h1>
-            </div>
-
-            <!--
-            <div class = "col-5 index_text p-2 mx-1">
-                <h1 class = "sensor3">Soil Humidity : </h1>
-            </div>
-            <br> -->
-
-
-
+    <!-- Online weather widget-->
+    <a class="weatherwidget-io" href="https://forecast7.com/en/13d76100d50/bangkok/" data-label_1="BANGKOK" data-label_2="WEATHER" data-theme="original" >BANGKOK WEATHER</a>
+    <script>
+         !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+    </script>
+    
+    <div class="layout_Ele">
+        <div class="index_text">
+            <h1 class="text-center text-white">Welcome to Smart Farm Sensor Dashboard</h1>
         </div>
+        <br>
+        <br>
+
+        <div class="container-fluid">
+
+            <div class="row">
+
+                <div class="col-5 index_text p-2 mx-1">
+                    <h1 class="sensor1"> Air Temperature : </h1>
+                </div>
+                <br>
+
+                <div class="col-5 index_text p-2 mx-1">
+                    <h1 class="sensor2">Air Humidity :</h1>
+                    <h1 class = "sensor3">Soil Humidity : </h1>
+                </div>
+
+                <!--
+                <div class = "col-5 index_text p-2 mx-1">
+                    <h1 class = "sensor3">Soil Humidity : </h1>
+                </div>
+                <br> -->
+            </div>
+        </div>
+
+        <br>
+        <div class="monitor_sensor">
+            <div class="gauge_soil">
+                <div class="gauge__body">
+                  <div class="gauge__fill_Br"></div>
+                  <div class="gauge__cover_Br"></div>
+                </div>
+            </div>
+            <div class="gauge_mois">
+                <div class="gauge__body">
+                  <div class="gauge__fill_B"></div>
+                  <div class="gauge__cover_B"></div>
+                </div>
+            </div>
+            <div class="gauge_temp">
+                <div class="gauge__body">
+                  <div class="gauge__fill_R"></div>
+                  <div class="gauge__cover_R"></div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <label class="text_switch">water pump switch</label>
     </div>
-
-
-    <style>
-
-        .index_text{
-            widows: 30px;
-            height: 120px;
-            justify-content: center;
-        }
-
-        .row{
-            justify-content: center;
-        }
-
-
-    </style>
-
+    <br>
+        <a href="http://127.0.0.1:5000/switch/on">
+            <button class="button button1" >ON</button>
+        </a>
+        <a href="http://127.0.0.1:5000/switch/off">
+           <button class="button button2">OFF</button>
+        </a>
+    <br>
+    <br>
     <div class="container-fluid">
         <!-- Example row of columns -->
         <div class="row">
@@ -90,9 +107,9 @@
             </div>
         </div>
     </div>
-<br>
-<br>
-<br>
+    <br>
+    <br>
+    <br>
 
     <div class="container-fluid">
         <!-- Example row of columns -->
@@ -111,9 +128,20 @@
             </div>
         </div>
     </div>
-
-
+    <br>
+    <br>
     <script>
+        function buttonon(){
+
+        }
+        function buttonoff(){
+            
+        }
+
+        
+        var AirTemperature;
+        var AirHumidity;
+        var moisture;
         var chartAirTemperature;
         var chartAirHumidity;
         var chartSoilHumidity;
@@ -284,9 +312,48 @@
 
 
         });
+        
+        const gaugeElement_soil = document.querySelector(".gauge_soil");
+                //gaugeElement_soil.addEventListener("onchange",setGaugeValue_soil(gaugeElement_soil,));//event soil refresh when new value comming    
+            function setGaugeValue_soil(gauge, value) {
+                    if (value < 0 || value > 1) {     
+                        return;
+                    }
+
+                        gauge.querySelector(".gauge__fill_Br").style.transform = `rotate(${value/2}turn)`;
+                        gauge.querySelector(".gauge__cover_Br").textContent = `${Math.round(value * 100)}%`+`soil moisture`;
+                    }
+                    
+            const gaugeElement_mois = document.querySelector(".gauge_mois");
+                   // gaugeElement_mois.addEventListener("onchange",setGaugeValue_mois(gaugeElement_mois,)); //event mois refresh when new value comming
+            function setGaugeValue_mois(gauge, value) {
+                            if (value < 0 || value > 1) {
+                                return;
+                            }
+
+                        gauge.querySelector(".gauge__fill_B").style.transform = `rotate(${value/2}turn)`;
+                        gauge.querySelector(".gauge__cover_B").textContent = `${Math.round(value * 100)}%`+`air moisture`;
+                        }
+                        
+
+            const gaugeElement_temp = document.querySelector(".gauge_temp");
+                    //gaugeElement_temp.addEventListener("onchange",setGaugeValue_temp(gaugeElement_mois,)); //event temp refresh when new value comming
+            function setGaugeValue_temp(gauge, value) {
+                            if (value < 0 || value > 1) {
+                                return;
+                        }
+                        
+                        gauge.querySelector(".gauge__fill_R").style.transform = `rotate(${value/2}turn)`;
+                        gauge.querySelector(".gauge__cover_R").textContent = `${Math.round(value * 100)}%`+`air temperature`;
+                        }
+        setGaugeValue_soil(gaugeElement_soil, 0.6); //test value
+        setGaugeValue_mois(gaugeElement_mois, 0.9); //test value
+        setGaugeValue_temp(gaugeElement_temp, 0.3); //test value
+
+        setGaugeValue_soil(gaugeElement_soil, data1[1]/100); 
+        setGaugeValue_mois(gaugeElement_mois, data2[1]/100); 
+        setGaugeValue_temp(gaugeElement_temp, data3[1]/100); 
     </script>
-
-
 
 <script>
     class Image{

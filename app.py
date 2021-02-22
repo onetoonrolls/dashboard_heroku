@@ -118,14 +118,13 @@ def read_data():
     else:
         return jsonify({"status": "Error", "msg": "please use query string name --topic--"})
 '''
-
 '''
 @app.route('/', methods=["GET", "POST"])
 def main():
     return render_template('index.html')
 
 
-@app.route('/data', methods=["GET", "POST"])
+@app.route('/data')
 def data():
     # Data Format
     # [TIME, Temperature, Humidity]
@@ -134,9 +133,9 @@ def data():
     #Deserialize : Str -> JSON
 
     
-        AirTemperature = json_buffer['data']['temperature']
-        AirHumidity = json_buffer['data']['humidity']
-        SoilHumidity = int(json_buffer['data']['moisture'])
+    AirTemperature = json_buffer['data']['temperature']
+    AirHumidity = json_buffer['data']['humidity']
+    SoilHumidity = json_buffer['data']['moisture']
     
 
 
