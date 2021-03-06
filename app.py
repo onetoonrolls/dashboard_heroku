@@ -118,7 +118,7 @@ def read_data():
     else:
         return jsonify({"status": "Error", "msg": "please use query string name --topic--"})
 '''
-'''
+
 @app.route('/', methods=["GET", "POST"])
 def main():
     return render_template('index.html')
@@ -148,7 +148,7 @@ def data():
     response.content_type = 'application/json'
 
     return response
-'''
+
 
 if __name__ == "__main__":
     app.run(debug=True, host="127.0.0.1")  # test
